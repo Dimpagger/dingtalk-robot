@@ -1,7 +1,11 @@
 
-import Greeter from './Greeter';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import DataForm from './DataForm';
 
-ReactDOM.render(<Greeter/>, document.getElementById('root'));
-// document.querySelector("#root").appendChild(greeter());
+
+ReactDOM.render(
+    <div>
+        <DataForm/>
+    </div>
+    , document.getElementById('root'));
