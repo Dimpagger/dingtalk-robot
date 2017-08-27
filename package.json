@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "electron": "^1.7.5"
+  },
+  "devDependencies": {
+    "webpack": "^3.5.5"
   }
 }
