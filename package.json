@@ -15,10 +15,10 @@
     "antd": "^2.12.8",
     "electron": "^1.7.5",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "request": "latest"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.4.0",
