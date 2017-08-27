@@ -1,4 +1,8 @@
 
 import greeter from './Greeter';
+import { Input } from 'antd';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-document.querySelector("#root").appendChild(greeter());
+ReactDOM.render(<Input />, document.getElementById('root'));
+// document.querySelector("#root").appendChild(greeter());
