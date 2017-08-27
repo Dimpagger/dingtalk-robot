@@ -16,8 +16,12 @@ module.exports = {
         rules: [
             {
                 test: /(\.jsx|\.js)$/,
-                use: { loader: "babel-loader", options: { presets: ["es2015", "react"] }},
+                use: { loader: "babel-loader"},
                 exclude: /node_modules/
+            },
+            {
+                test: /(\.css|\.less)$/,
+                use: [{loader: "style-loader"}, {loader: "css-loader", options: {modules: true}}]
             }
         ]
     }
