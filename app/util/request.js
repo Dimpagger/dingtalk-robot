@@ -1,19 +1,15 @@
 import axios from 'axios'
 import qs from 'qs'
-import { YQL, CORS, baseURL } from './config'
 import jsonp from 'jsonp'
 import lodash from 'lodash'
 
-axios.defaults.baseURL = baseURL
-
-
 const fetch = (options) => {
     let {
-        method = 'get',
+        method,
         data,
         fetchType,
         url,
-    } = options
+    } = options;
 
     if (fetchType === 'JSONP') {
         return new Promise((resolve, reject) => {
@@ -38,6 +34,7 @@ const fetch = (options) => {
         case 'head':
             return axios.head(url, data)
         case 'post':
+            console.log(url, data);
             return axios.post(url, data)
         case 'put':
             return axios.put(url, data)
@@ -52,13 +49,11 @@ export default function request (options) {
     if (options.url && options.url.indexOf('//') > -1) {
         const origin = `${options.url.split('//')[0]}//${options.url.split('//')[1].split('/')[0]}`
         if (window.location.origin !== origin) {
-            if (CORS && CORS.indexOf(origin) > -1) {
-                options.fetchType = 'CORS'
-            } else if (YQL && YQL.indexOf(origin) > -1) {
-                options.fetchType = 'YQL'
-            } else {
-                options.fetchType = 'JSONP'
-            }
+            // if (cors && cors.indexof(origin) > -1) {
+            //     options.fetchtype = 'cors'
+            // }else {
+            //     options.fetchType = 'JSONP'
+            // }
         }
     }
 

@@ -1,6 +1,7 @@
 import { Form, Input, Switch, Button } from 'antd';
 import React from 'react';
-import request from "request";
+import request from './util/request';
+// import request from "request";
 
 const FormItem = Form.Item;
 
@@ -17,27 +18,30 @@ class DataForm extends React.Component{
                 return
             }
             console.log(values);
-            this.fetch(values.webHook).then((resp) => {
-                console.log(resp);
-            }).catch((error) => {
-                console.log(error);
+            request({
+                url: values.webHook,
+                desc: 'post data to hook.',
+                method: 'POST',
+                data: {"msgtype": "text", "text":{"content": values.content}, "at":{"isAtAll": values.isAtAll}}
+            }).then((data) => {
+                console.log(data);
             })
         });
     }
-
-    fetch(url){
-        return new Promise((resolve, reject) =>{
-            request(url, (error, response, body) => {
-                if(!error && response.statusCode === 200){
-                    resolve(body);
-                } else {
-                    reject({
-                        reason: "Fetch failed."
-                    })
-                }
-            })
-        })
-    }
+    //
+    // fetch(url){
+    //     return new Promise((resolve, reject) =>{
+    //         request(url, (error, response, body) => {
+    //             if(!error && response.statusCode === 200){
+    //                 resolve(body);
+    //             } else {
+    //                 reject({
+    //                     reason: "Fetch failed."
+    //                 })
+    //             }
+    //         })
+    //     })
+    // }
 
     render(){
         const { getFieldDecorator } = this.props.form;
