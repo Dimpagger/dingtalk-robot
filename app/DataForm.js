@@ -1,9 +1,19 @@
 import { Form, Input, Switch, Button } from 'antd';
 import React from 'react';
 import request from './util/request';
-// import request from "request";
+import schedule from 'node-schedule';
 
 const FormItem = Form.Item;
+
+let rule = new schedule.RecurrenceRule();
+let times = [];
+for(let i=1; i<60; i++){
+    times.push(i);
+}
+rule.minute =times;
+schedule.scheduleJob(rule, function(){
+    console.log('hehe');
+});
 
 class DataForm extends React.Component{
     constructor(){
@@ -28,20 +38,6 @@ class DataForm extends React.Component{
             })
         });
     }
-    //
-    // fetch(url){
-    //     return new Promise((resolve, reject) =>{
-    //         request(url, (error, response, body) => {
-    //             if(!error && response.statusCode === 200){
-    //                 resolve(body);
-    //             } else {
-    //                 reject({
-    //                     reason: "Fetch failed."
-    //                 })
-    //             }
-    //         })
-    //     })
-    // }
 
     render(){
         const { getFieldDecorator } = this.props.form;
