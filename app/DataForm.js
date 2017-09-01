@@ -1,24 +1,19 @@
 import { Form, Input, Switch, Button } from 'antd';
 import React from 'react';
 import request from './util/request';
-import schedule from 'node-schedule';
+import cron from './util/cron';
 
 const FormItem = Form.Item;
 
-let rule = new schedule.RecurrenceRule();
-let times = [];
-for(let i=1; i<60; i++){
-    times.push(i);
-}
-rule.minute =times;
-schedule.scheduleJob(rule, function(){
-    console.log('hehe');
-});
+cron('*/5 * * * * *');
 
 class DataForm extends React.Component{
     constructor(){
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentWillMount(){
     }
 
     handleSubmit(e){
