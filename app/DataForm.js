@@ -5,32 +5,51 @@ import cron from './util/cron';
 
 const FormItem = Form.Item;
 
-cron('*/5 * * * * *');
-
 class DataForm extends React.Component{
     constructor(){
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            url: "https://oapi.dingtalk.com/robot/send?access_token=037b9ce96d55cdf37d49f1a353a6e50c64c70735cb9e5fe9539e38bde9fd4151",
+            cron: "0 */10 * * * *",
+            data: {
+                msgtype: "text",
+                text: {
+                    content: "我爱我家大宝贝儿",
+                },
+                at: {
+                    isAtAll: false
+                }
+            }
+        }
     }
 
     componentWillMount(){
+        cron(this.state.cron, this.state.url, this.state.data);
     }
 
     handleSubmit(e){
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if(err){
+            if (err) {
                 return
             }
             console.log(values);
-            request({
+            this.setState({
                 url: values.webHook,
-                desc: 'post data to hook.',
-                method: 'POST',
-                data: {"msgtype": "text", "text":{"content": values.content}, "at":{"isAtAll": values.isAtAll}}
-            }).then((data) => {
-                console.log(data);
-            })
+                data: {"msgtype": "text", "text": {"content": values.content}, "at": {"isAtAll": values.isAtAll}}
+            }, () => {
+
+                request({
+                    url: this.state.url,
+                    desc: 'post data to hook.',
+                    method: 'POST',
+                    data: this.state.data
+                }).then((data) => {
+                    console.log(data);
+                })
+            });
+            cron(this.state.cron, this.state.url, this.state.data);
         });
     }
 
@@ -45,7 +64,7 @@ class DataForm extends React.Component{
                 <FormItem {...formItemLayout} label="机器人WebHook地址" hasFeedback>
                     {getFieldDecorator('webHook', {
                         rules: [{required: true, message: '请输入WebHook地址'}],
-                        initialValue: "https://oapi.dingtalk.com/robot/send?access_token=xxxxxxxx"
+                        initialValue: "https://oapi.dingtalk.com/robot/send?access_token=0d4487c9daeb09438adc0a219efdae7af93c85e3a8c8772ea30fc08104771c33"
                     })(<Input/>)}
                 </FormItem>
                 <FormItem {...formItemLayout} label="消息内容" hasFeedback>
@@ -53,6 +72,12 @@ class DataForm extends React.Component{
                         rules: [{required: true, message: '请输入消息内容'}],
                         initialValue: "长剑一杯酒 男儿方寸心"
                     })(<Input/>)}
+                </FormItem>
+                <FormItem {...formItemLayout} label="定时发送" hasFeedback>
+                    {getFieldDecorator('cron', {
+                        rules: [{required: true, message: '请输入定时表达式'}],
+                        initialValue: "* */10 * * * *"
+                    })(<Input />)}
                 </FormItem>
                 <FormItem {...formItemLayout} label="@所有人">
                     {getFieldDecorator('isAtAll')(<Switch/>)}
