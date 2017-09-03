@@ -1,6 +1,7 @@
 
 module.exports = {
     entry: __dirname + "/app/main.js",
+    target: 'node',
     devtool: 'eval-source-map',
     output: {
         path: __dirname + "/public",

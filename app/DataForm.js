@@ -3,6 +3,7 @@ import React from 'react';
 import request from './util/request';
 import locate from './service/locate';
 import cron from './util/cron';
+import config from './util/configuration';
 
 const FormItem = Form.Item;
 
@@ -10,6 +11,7 @@ class DataForm extends React.Component{
     constructor(){
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSave = this.handleSave.bind(this);
         this.state = {
             url: "https://oapi.dingtalk.com/robot/send?access_token=037b9ce96d55cdf37d49f1a353a6e50c64c70735cb9e5fe9539e38bde9fd4151",
             cron: "0 */10 * * * *",
@@ -30,6 +32,10 @@ class DataForm extends React.Component{
         locate();
     }
 
+    handleSave(e){
+        config.saveSettings()
+    }
+
     handleSubmit(e){
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -41,6 +47,8 @@ class DataForm extends React.Component{
                 url: values.webHook,
                 data: {"msgtype": "text", "text": {"content": values.content}, "at": {"isAtAll": values.isAtAll}}
             }, () => {
+
+                config.saveSettings(values.webHook, values);
 
                 request({
                     url: this.state.url,
@@ -86,6 +94,9 @@ class DataForm extends React.Component{
                 </FormItem>
                 <FormItem wrapperCol={{span:12, offset:6}}>
                     <Button type="primary" htmlType="submit">发送</Button>
+                </FormItem>
+                <FormItem wrapperCol={{span:12, offset:6}}>
+                    <Button type="primary" onClick={this.handleSave}>保存配置</Button>
                 </FormItem>
             </Form>
         )

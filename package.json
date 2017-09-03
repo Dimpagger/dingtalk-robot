@@ -17,6 +17,7 @@
     "electron": "^1.7.5",
     "jsonp": "^0.2.1",
     "lodash": "^4.17.4",
+    "nconf": "latest",
     "node-schedule": "^1.2.4",
     "qs": "latest",
     "react": "^15.6.1",
