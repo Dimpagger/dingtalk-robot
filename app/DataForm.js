@@ -1,6 +1,7 @@
 import { Form, Input, Switch, Button } from 'antd';
 import React from 'react';
 import request from './util/request';
+import locate from './service/locate';
 import cron from './util/cron';
 
 const FormItem = Form.Item;
@@ -25,7 +26,8 @@ class DataForm extends React.Component{
     }
 
     componentWillMount(){
-        cron(this.state.cron, this.state.url, this.state.data);
+        // cron(this.state.cron, this.state.url, this.state.data);
+        locate();
     }
 
     handleSubmit(e){
