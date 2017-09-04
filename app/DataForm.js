@@ -1,9 +1,10 @@
-import { Form, Input, Switch, Button } from 'antd';
+import { Form, Input, Switch, Button, Row, Col } from 'antd';
 import React from 'react';
 import request from './util/request';
 import locate from './service/locate';
 import cron from './util/cron';
-import config from './util/configuration';
+
+// import config from './util/configuration';
 
 const FormItem = Form.Item;
 
@@ -33,7 +34,7 @@ class DataForm extends React.Component{
     }
 
     handleSave(e){
-        config.saveSettings()
+        // config.saveSettings()
     }
 
     handleSubmit(e){
@@ -48,7 +49,7 @@ class DataForm extends React.Component{
                 data: {"msgtype": "text", "text": {"content": values.content}, "at": {"isAtAll": values.isAtAll}}
             }, () => {
 
-                config.saveSettings(values.webHook, values);
+                // config.saveSettings(values.webHook, values);
 
                 request({
                     url: this.state.url,
@@ -92,16 +93,21 @@ class DataForm extends React.Component{
                 <FormItem {...formItemLayout} label="@所有人">
                     {getFieldDecorator('isAtAll')(<Switch/>)}
                 </FormItem>
+                <Row>
+                    <Col span={3} offset={15}>
                 <FormItem wrapperCol={{span:12, offset:6}}>
-                    <Button type="primary" htmlType="submit">发送</Button>
+                    <Button type="primary" htmlType="submit">测试发送</Button>
                 </FormItem>
+                    </Col>
+                    <Col span={3}>
                 <FormItem wrapperCol={{span:12, offset:6}}>
                     <Button type="primary" onClick={this.handleSave}>保存配置</Button>
                 </FormItem>
+                    </Col>
+                </Row>
             </Form>
         )
     }
 }
-
 
 export default Form.create()(DataForm);
