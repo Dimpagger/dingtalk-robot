@@ -51,7 +51,8 @@ class App extends React.Component {
                         </div>
                     </Content>
                     <Footer style={{textAlign: 'center'}}>
-                        Ant Design ©2016 Created by Ant UED
+
+                        长剑一杯酒 男儿方寸心 ©2016 Created by Imp
                     </Footer>
                 </Layout>
             </Layout>
