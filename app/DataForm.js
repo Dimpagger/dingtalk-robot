@@ -69,9 +69,6 @@ class DataForm extends React.Component{
         const formItemLayout = {labelCol:{xs:{span:24}, sm:{span:6}}, wrapperCol:{xs:{span:24}, sm:{span:14}}};
         return(
             <Form onSubmit={this.handleSubmit}>
-                <h1 style={{textAlign:'center', paddingTop: 50, paddingBottom: 20}}>
-                    钉钉机器人
-                </h1>
                 <FormItem {...formItemLayout} label="机器人WebHook地址" hasFeedback>
                     {getFieldDecorator('webHook', {
                         rules: [{required: true, message: '请输入WebHook地址'}],

@@ -1,6 +1,7 @@
 import React from 'react';
-import {Layout, Menu, Icon} from 'antd';
+import {Layout, Menu, Icon, Breadcrumb} from 'antd';
 import style from './app.less';
+import DataForm from './DataForm';
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -22,41 +23,42 @@ class App extends React.Component {
 
     render(){
         return (
-            <Layout>
-                <Sider style={{overflow: 'auto', height: '100vh', position: 'fixed', left: 0}}>
-                    <div className="logo"/>
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+            <Layout style={{ minHeight: '100vh' }}>
+                <Sider
+                    collapsible
+                    collapsed={this.state.siderFold}
+                    onCollapse={this.switchSider}
+                >
+                    <div className="logo" />
+                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                         <Menu.Item key="1">
-                            <Icon type="user"/>
-                            <span className="nav-text">nav 1</span>
+                            <Icon type="pie-chart" />
+                            <span>Config 1</span>
                         </Menu.Item>
                         <Menu.Item key="2">
-                            <Icon type="video-camera"/>
-                            <span className="nav-text">nav 2</span>
+                            <Icon type="desktop" />
+                            <span>Config 2</span>
+                        </Menu.Item>
+                        <Menu.Item key="9">
+                            <Icon type="file" />
+                            <span>Config 3</span>
                         </Menu.Item>
                     </Menu>
                 </Sider>
-                <Layout style={{marginLeft: 200}}>
-                    <Header style={{background: '#fff', padding: 0}}>
-                        <div onClick={this.switchSider} className="button">
-                        <Icon type={this.state.siderFold ? 'menu-unfold' : 'menu-fold'} />
-                        </div>
+                <Layout>
+                    <Header style={{ background: '#fff', padding: 0, textAlign: 'center'}} >
+                        <h1>钉钉机器人</h1>
                     </Header>
-                    <Content style={{margin: '24px 16px 0', overflow: 'initial'}}>
-                        <div style={{padding: 24, background: '#fff', textAlign: 'center'}}>
-                            ...
-                            <br/>
-                            Really
-                            <br/>...<br/>...<br/>...<br/>
+                    <Content>
+                        <div style={{ padding: 24, background: '#fff', minHeight: 60 }}>
+                            <DataForm/>
                         </div>
                     </Content>
-                    <Footer style={{textAlign: 'center'}}>
-
+                    <Footer style={{ textAlign: 'center' }}>
                         长剑一杯酒 男儿方寸心 ©2016 Created by Imp
                     </Footer>
                 </Layout>
             </Layout>
-
         )
     }
 }
