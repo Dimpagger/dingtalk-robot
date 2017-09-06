@@ -1,15 +1,15 @@
-import { Form, Input, Switch, Button, Row, Col } from 'antd';
+import {Form, Input, Switch, Button, Row, Col} from 'antd';
 import React from 'react';
 import request from './util/request';
 import locate from './service/locate';
 import cron from './util/cron';
 
-// import config from './util/configuration';
+import config from './util/configuration';
 
 const FormItem = Form.Item;
 
-class DataForm extends React.Component{
-    constructor(){
+class DataForm extends React.Component {
+    constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSave = this.handleSave.bind(this);
@@ -28,16 +28,17 @@ class DataForm extends React.Component{
         }
     }
 
-    componentWillMount(){
+    componentWillMount() {
         // cron(this.state.cron, this.state.url, this.state.data);
         locate();
+        this.handleSave()
     }
 
-    handleSave(e){
-        // config.saveSettings()
+    handleSave(e) {
+        config.saveSettings(this.state)
     }
 
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (err) {
@@ -64,11 +65,16 @@ class DataForm extends React.Component{
         });
     }
 
-    render(){
-        const { getFieldDecorator } = this.props.form;
-        const formItemLayout = {labelCol:{xs:{span:24}, sm:{span:6}}, wrapperCol:{xs:{span:24}, sm:{span:14}}};
-        return(
+    render() {
+        const {getFieldDecorator} = this.props.form;
+        const formItemLayout = {labelCol: {xs: {span: 24}, sm: {span: 6}}, wrapperCol: {xs: {span: 24}, sm: {span: 14}}};
+        return (
             <Form onSubmit={this.handleSubmit}>
+                <FormItem {...formItemLayout} label="群聊名称" hasFeedback>
+                    {getFieldDecorator('groupName', {
+                        rules: [{required: true, message: '请输入群聊名称'}]
+                    })(<Input/>)}
+                </FormItem>
                 <FormItem {...formItemLayout} label="机器人WebHook地址" hasFeedback>
                     {getFieldDecorator('webHook', {
                         rules: [{required: true, message: '请输入WebHook地址'}],
@@ -85,21 +91,21 @@ class DataForm extends React.Component{
                     {getFieldDecorator('cron', {
                         rules: [{required: true, message: '请输入定时表达式'}],
                         initialValue: "* */10 * * * *"
-                    })(<Input />)}
+                    })(<Input/>)}
                 </FormItem>
                 <FormItem {...formItemLayout} label="@所有人">
                     {getFieldDecorator('isAtAll')(<Switch/>)}
                 </FormItem>
                 <Row>
                     <Col span={3} offset={15}>
-                <FormItem wrapperCol={{span:12, offset:6}}>
-                    <Button type="primary" htmlType="submit">测试发送</Button>
-                </FormItem>
+                        <FormItem wrapperCol={{span: 12, offset: 6}}>
+                            <Button type="primary" htmlType="submit">测试发送</Button>
+                        </FormItem>
                     </Col>
                     <Col span={3}>
-                <FormItem wrapperCol={{span:12, offset:6}}>
-                    <Button type="primary" onClick={this.handleSave}>保存配置</Button>
-                </FormItem>
+                        <FormItem wrapperCol={{span: 12, offset: 6}}>
+                            <Button type="primary" onClick={this.handleSave}>保存配置</Button>
+                        </FormItem>
                     </Col>
                 </Row>
             </Form>

@@ -46,11 +46,11 @@ class App extends React.Component {
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header style={{ background: '#fff', padding: 0, textAlign: 'center'}} >
+                    <Header style={{ background: '#fff', paddingTop: 10, textAlign: 'center'}} >
                         <h1>钉钉机器人</h1>
                     </Header>
                     <Content>
-                        <div style={{ padding: 24, background: '#fff', minHeight: 60 }}>
+                        <div style={{ padding: 24, background: '#fff', minHeight: 60, paddingTop: 80 }}>
                             <DataForm/>
                         </div>
                     </Content>
