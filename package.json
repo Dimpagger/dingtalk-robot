@@ -18,7 +18,7 @@
     "fs": "^0.0.1-security",
     "jsonp": "^0.2.1",
     "lodash": "^4.17.4",
-    "nconf": "latest",
+    "nconf": "2.0.1",
     "node-schedule": "^1.2.4",
     "qs": "latest",
     "react": "^15.6.1",

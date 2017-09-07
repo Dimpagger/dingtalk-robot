@@ -35,7 +35,8 @@ class DataForm extends React.Component {
     }
 
     handleSave(e) {
-        config.saveSettings(this.state)
+        config.openFile();
+        config.saveData("hehe");
     }
 
     handleSubmit(e) {
