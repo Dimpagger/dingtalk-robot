@@ -30,13 +30,16 @@ class DataForm extends React.Component {
 
     componentWillMount() {
         // cron(this.state.cron, this.state.url, this.state.data);
-        locate();
-        this.handleSave()
+        // locate();
+        config.readData();
     }
 
-    handleSave(e) {
-        config.openFile();
-        config.saveData("hehe");
+    handleSave() {
+        this.props.form.validateFields((err, values) => {
+            console.log(values);
+            // config.openFile();
+            config.saveData(JSON.stringify(values));
+        });
     }
 
     handleSubmit(e) {
