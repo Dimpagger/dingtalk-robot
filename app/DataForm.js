@@ -37,9 +37,9 @@ class DataForm extends React.Component {
 
     handleSave() {
         this.props.form.validateFields((err, values) => {
-            console.log(values);
+            // console.log(values);
             // config.openFile();
-            config.saveData(JSON.stringify(values));
+            config.saveDataSync(JSON.stringify(values));
         });
     }
 

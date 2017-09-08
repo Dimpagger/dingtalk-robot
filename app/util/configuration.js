@@ -23,6 +23,27 @@ function initFile() {
     });
 }
 
+function saveDataSync(data){
+
+    console.log('保存数据：', data);
+
+    let content;
+    let obj = [];
+
+    content = fs.readFileSync(FILE_NAME);
+    console.log('读取数据: ', content);
+    try{
+        obj = JSON.parse(content);
+    } catch (e){
+        console.error('原始文件数据异常 content: ', content);
+    }
+    obj.push(JSON.parse(data));
+
+    fs.writeFileSync(FILE_NAME, JSON.stringify(obj), {flag: 'w'});
+
+    console.log('保存完成，数据：', fs.readFileSync(FILE_NAME));
+}
+
 function saveData(data){
     let content = '';
     let obj = [];
@@ -51,7 +72,7 @@ function saveData(data){
             if (err) {
                 return console.error(err);
             }
-            console.log("异步读取文件数据: " + data.toString());
+            console.log("读取文件数据: " + data.toString());
         });
     });
 }
@@ -69,6 +90,7 @@ function readData(){
 module.exports = {
     openFile: openFile,
     saveData: saveData,
+    saveDataSync: saveDataSync,
     initFile: initFile,
     readData: readData
 };
