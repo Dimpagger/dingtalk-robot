@@ -31,7 +31,8 @@ class DataForm extends React.Component {
     componentWillMount() {
         // cron(this.state.cron, this.state.url, this.state.data);
         // locate();
-        config.readData();
+        config.initFile();
+        // config.readData();
     }
 
     handleSave() {

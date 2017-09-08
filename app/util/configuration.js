@@ -13,8 +13,36 @@ function openFile() {
     });
 }
 
+function initFile() {
+    fs.writeFile(FILE_NAME, {flag: 'r'}, function (err, fd) {
+        if (err) {
+            return console.error(err);
+        }
+        console.log("初始化配置文件");
+        console.log('fd', fd);
+    });
+}
+
 function saveData(data){
-    fs.writeFile( FILE_NAME, data, {flag: 'a'}, function(err) {
+    let content = '';
+    let obj = [];
+    fs.readFile(FILE_NAME, function(err, data){
+        if(err){
+            return console.error(err);
+        }
+        content = data;
+        console.log('read file: ', content);
+    });
+
+    try{
+        obj = JSON.parse(content);
+    } catch(e){
+        console.error('原始文件数据异常 content: ', content);
+    }
+
+    obj.push(JSON.parse(data));
+
+    fs.writeFile( FILE_NAME, JSON.stringify(obj), {flag: 'w'}, function(err) {
         if (err) {
             return console.error(err);
         }
@@ -41,5 +69,6 @@ function readData(){
 module.exports = {
     openFile: openFile,
     saveData: saveData,
+    initFile: initFile,
     readData: readData
 };
