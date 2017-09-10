@@ -5,7 +5,6 @@ import App from './app';
 
 ReactDOM.render(
     <div>
-        {/*<DataForm/>*/}
         <App />
     </div>
     , document.getElementById('root'));

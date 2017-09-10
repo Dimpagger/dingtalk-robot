@@ -1,9 +1,7 @@
 import {Form, Input, Switch, Button, Row, Col} from 'antd';
 import React from 'react';
 import request from './util/request';
-import locate from './service/locate';
 import cron from './util/cron';
-
 import config from './util/configuration';
 
 const FormItem = Form.Item;
@@ -29,15 +27,11 @@ class DataForm extends React.Component {
     }
 
     componentWillMount() {
-        // cron(this.state.cron, this.state.url, this.state.data);
-        // locate();
-        config.initFile();
-        // config.readData();
+        console.log(config.readDataSync());
     }
 
     handleSave() {
         this.props.form.validateFields((err, values) => {
-            // console.log(values);
             // config.openFile();
             config.saveDataSync(JSON.stringify(values));
         });

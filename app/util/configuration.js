@@ -5,7 +5,7 @@ import fs from 'fs';
 const FILE_NAME = 'config.json';
 
 function openFile() {
-    fs.open(FILE_NAME, 'a', function (err, fd) {
+    fs.open(FILE_NAME, 'a', function (err) {
         if (err) {
             return console.error(err);
         }
@@ -87,10 +87,16 @@ function readData(){
     });
 }
 
+function readDataSync(){
+    let fileData = fs.readFileSync(FILE_NAME);
+    return JSON.parse(fileData);
+}
+
 module.exports = {
     openFile: openFile,
     saveData: saveData,
     saveDataSync: saveDataSync,
     initFile: initFile,
-    readData: readData
+    readData: readData,
+    readDataSync: readDataSync
 };
