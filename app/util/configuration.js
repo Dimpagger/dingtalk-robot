@@ -4,24 +4,6 @@ import fs from 'fs';
 
 const FILE_NAME = 'config.json';
 
-function openFile() {
-    fs.open(FILE_NAME, 'a', function (err) {
-        if (err) {
-            return console.error(err);
-        }
-        console.log("文件打开成功！");
-    });
-}
-
-function initFile() {
-    fs.writeFile(FILE_NAME, {flag: 'r'}, function (err, fd) {
-        if (err) {
-            return console.error(err);
-        }
-        console.log("初始化配置文件");
-        console.log('fd', fd);
-    });
-}
 
 function saveDataSync(data){
 
@@ -93,10 +75,8 @@ function readDataSync(){
 }
 
 module.exports = {
-    openFile: openFile,
     saveData: saveData,
     saveDataSync: saveDataSync,
-    initFile: initFile,
     readData: readData,
     readDataSync: readDataSync
 };
