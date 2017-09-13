@@ -19,7 +19,22 @@ function saveDataSync(data){
     } catch (e){
         console.error('原始文件数据异常 content: ', content);
     }
-    obj.push(JSON.parse(data));
+
+    const saveObj = JSON.parse(data);
+    let alreadyHas = false;
+
+    obj.map((value, index) => {
+        if(value.groupName === saveObj.groupName){
+            console.log('更新配置: ', saveObj);
+            alreadyHas = true;
+            obj[index] = saveObj;
+        }
+    });
+
+    if (!alreadyHas){
+        obj.push(saveObj);
+        console.log("新增配置: ", saveObj);
+    }
 
     fs.writeFileSync(FILE_NAME, JSON.stringify(obj), {flag: 'w'});
 
